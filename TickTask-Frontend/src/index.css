@@ -1,0 +1,191 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+    --background: hsl(30, 100%, 98%); /* Light warm background */
+    --foreground: hsl(28, 70%, 12%); /* Dark brownish foreground */
+
+    --card: hsl(0, 0%, 100%);
+    --card-foreground: hsl(28, 70%, 12%);
+
+    --popover: hsl(0, 0%, 100%);
+    --popover-foreground: hsl(28, 70%, 12%);
+
+    --primary: #f2732b; /* Vibrant orange - main color */
+    --primary-foreground: hsl(30, 100%, 98%);
+
+    --secondary: hsl(28, 85%, 85%); /* Soft pastel orange */
+    --secondary-foreground: hsl(28, 70%, 12%);
+
+    --muted: hsl(28, 85%, 85%);
+    --muted-foreground: hsl(28, 50%, 40%);
+
+    --accent: hsl(180, 65%, 40%); /* Teal for contrast */
+    --accent-foreground: hsl(30, 100%, 98%);
+
+    --destructive: hsl(0, 80%, 50%); /* Strong red for delete/warning */
+    --destructive-foreground: hsl(30, 100%, 98%);
+
+    --border: hsl(28, 45%, 80%);
+    --input: hsl(28, 45%, 80%);
+    --ring: #f2732b;
+
+    /* Task Status Colors */
+    --chart-1: hsl(120, 70%, 40%); /* Completed - Green */
+    --chart-2: hsl(40, 90%, 55%); /* In Progress - Yellow */
+    --chart-3: hsl(0, 80%, 50%); /* Overdue - Red */
+    --chart-4: hsl(217, 85%, 50%); /* Planned - Blue */
+    --chart-5: hsl(267, 75%, 65%); /* On Hold - Purple */
+
+    --radius: 0.6rem;
+}
+
+/* Dark Mode */
+.dark {
+    --background: hsl(28, 70%, 12%);
+    --foreground: hsl(30, 100%, 98%);
+
+    --card: hsl(30, 50%, 20%);
+    --card-foreground: hsl(30, 100%, 98%);
+
+    --popover: hsl(30, 50%, 20%);
+    --popover-foreground: hsl(30, 100%, 98%);
+
+    --primary: #f2732b;
+    --primary-foreground: hsl(30, 100%, 98%);
+
+    --secondary: hsl(28, 40%, 25%);
+    --secondary-foreground: hsl(30, 100%, 98%);
+
+    --muted: hsl(28, 40%, 25%);
+    --muted-foreground: hsl(28, 30%, 60%);
+
+    --accent: hsl(180, 65%, 40%);
+    --accent-foreground: hsl(30, 100%, 98%);
+
+    --destructive: hsl(0, 65%, 40%);
+    --destructive-foreground: hsl(30, 100%, 98%);
+
+    --border: hsl(28, 40%, 25%);
+    --input: hsl(28, 40%, 25%);
+    --ring: #f2732b;
+
+    /* Task Status Colors */
+    --chart-1: hsl(120, 70%, 45%);
+    --chart-2: hsl(40, 85%, 55%);
+    --chart-3: hsl(0, 75%, 50%);
+    --chart-4: hsl(217, 85%, 55%);
+    --chart-5: hsl(267, 75%, 65%);
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground font-sans antialiased leading-relaxed;
+    }
+
+    h1 {
+        @apply text-4xl font-bold tracking-tight text-primary;
+    }
+
+    h2 {
+        @apply text-3xl font-semibold tracking-tight text-primary-foreground;
+    }
+
+    h3 {
+        @apply text-2xl font-medium tracking-tight text-secondary;
+    }
+
+    h4 {
+        @apply text-xl font-medium tracking-tight text-secondary-foreground;
+    }
+
+    h5 {
+        @apply text-lg font-medium tracking-tight text-muted;
+    }
+
+    h6 {
+        @apply font-medium tracking-tight text-muted-foreground;
+    }
+
+    p {
+        @apply leading-7 text-foreground/80;
+    }
+
+    a {
+        @apply text-primary hover:underline hover:text-primary-foreground;
+    }
+
+    blockquote {
+        @apply border-l-4 border-primary pl-4 italic text-lg text-muted-foreground;
+    }
+
+    ul {
+        @apply list-disc list-inside text-foreground;
+    }
+
+    ol {
+        @apply list-decimal list-inside text-foreground;
+    }
+
+    strong {
+        @apply font-semibold text-accent;
+    }
+
+    em {
+        @apply italic text-accent-foreground;
+    }
+
+    small {
+        @apply text-sm text-muted-foreground;
+    }
+
+    code {
+        @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-accent;
+    }
+
+    pre {
+        @apply bg-muted p-4 rounded text-sm font-mono overflow-x-auto text-accent-foreground;
+    }
+
+    hr {
+        @apply border-t border-border my-4;
+    }
+}
