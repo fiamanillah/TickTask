@@ -19,6 +19,8 @@ const taskSchema = new mongoose.Schema({
         enum: ['To-Do', 'In Progress', 'Done'],
         default: 'To-Do',
     },
+    userId: { type: String, required: true }, // Store Firebase user ID
+    order: { type: Number, default: 0 }, // New field to store the order of tasks
 });
 
 module.exports = mongoose.model('Task', taskSchema);

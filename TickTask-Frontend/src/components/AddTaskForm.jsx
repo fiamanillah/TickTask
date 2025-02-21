@@ -9,30 +9,41 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { useAuth } from '../contexts/AuthContext';
 
-const AddTaskForm = ({ onTaskAdded }) => {
+const AddTaskForm = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('To-Do');
+    const { user } = useAuth();
 
     const handleSubmit = async e => {
         e.preventDefault();
+
+        // Create the new task object
         const newTask = {
             title,
             description,
             category,
             timestamp: new Date().toISOString(),
+            userId: user?.uid, // Use the authenticated user's ID
         };
 
-        const response = await axiosInstance.post('/api/tasks', newTask);
-        onTaskAdded(response.data);
-        setTitle('');
-        setDescription('');
-        setCategory('To-Do');
+        try {
+            // Send the new task to the backend
+            await axiosInstance.post('/api/tasks', newTask);
+
+            // Reset the form fields
+            setTitle('');
+            setDescription('');
+            setCategory('To-Do');
+        } catch (error) {
+            console.error('Failed to create task:', error);
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-8 flex gap-4">
+        <form onSubmit={handleSubmit} className="mb-8 flex flex-col gap-4 md:flex-row">
             <Input
                 type="text"
                 placeholder="Title"
@@ -51,6 +62,7 @@ const AddTaskForm = ({ onTaskAdded }) => {
                 className="p-2"
                 maxLength={200}
             />
+
             <Select onValueChange={setCategory} value={category}>
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Category" />
@@ -62,7 +74,9 @@ const AddTaskForm = ({ onTaskAdded }) => {
                 </SelectContent>
             </Select>
 
-            <Button type="submit">Add Task</Button>
+            <Button type="submit" className="w-full md:w-auto">
+                Add Task
+            </Button>
         </form>
     );
 };

@@ -1,25 +1,39 @@
 const express = require('express');
+const { createServer } = require('http');
 require('dotenv').config();
 const cors = require('cors');
-const http = require('http');
-const { Server } = require('socket.io');
 const connectDB = require('./config/mongodb');
 const userRoutes = require('./routes/userRoutes');
-const taskRoutes = require('./routes/taskRoutes');
+const initializeSocket = require('./config/socket'); // Import socket module
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: [
-            'https://parcelpop-project.web.app', // Production frontend
-            'http://localhost:5173', // Development frontend
-        ],
-        credentials: true,
-    },
-});
+const httpServer = createServer(app);
 
-app.use(cors());
+// Initialize Socket.io
+const io = initializeSocket(httpServer);
+
+// Middleware to pass Socket.IO instance to routes
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
+const allowedOrigins = [
+    'https://parcelpop-project.web.app', // Production frontend
+    'http://localhost:5173', // Development frontend
+];
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true,
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,23 +45,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
-app.use('/api/tasks', taskRoutes);
+app.use('/api/tasks', require('./routes/taskRoutes'));
 
-io.on('connection', socket => {
-    console.log(`User connected: ${socket.id}`);
-
-    socket.on('disconnect', () => {
-        console.log(`User disconnected: ${socket.id}`);
-    });
-});
-
-// Make Socket.IO available to other modules
-app.set('socketio', io);
-
-// Start the server
+// Start server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-module.exports = { app, io };
+module.exports = httpServer;

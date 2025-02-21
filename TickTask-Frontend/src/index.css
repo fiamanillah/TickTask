@@ -5,10 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    --background: hsl(30, 100%, 98%); /* Light warm background */
+    --background: hsl(30, 89%, 96%); /* Light warm background */
     --foreground: hsl(28, 70%, 12%); /* Dark brownish foreground */
 
-    --card: hsl(0, 0%, 100%);
+    --card: hsl(30, 100%, 95%);
     --card-foreground: hsl(28, 70%, 12%);
 
     --popover: hsl(0, 0%, 100%);
@@ -45,10 +45,10 @@
 
 /* Dark Mode */
 .dark {
-    --background: hsl(28, 70%, 12%);
+    --background: hsl(27, 78%, 9%);
     --foreground: hsl(30, 100%, 98%);
 
-    --card: hsl(30, 50%, 20%);
+    --card: hsl(30, 60%, 18%);
     --card-foreground: hsl(30, 100%, 98%);
 
     --popover: hsl(30, 50%, 20%);
