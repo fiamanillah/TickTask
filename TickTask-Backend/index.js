@@ -7,19 +7,9 @@ const userRoutes = require('./routes/userRoutes');
 const initializeSocket = require('./config/socket'); // Import socket module
 
 const app = express();
-const httpServer = createServer(app);
-
-// Initialize Socket.io
-const io = initializeSocket(httpServer);
-
-// Middleware to pass Socket.IO instance to routes
-app.use((req, res, next) => {
-    req.io = io;
-    next();
-});
 const allowedOrigins = [
-    'https://parcelpop-project.web.app', // Production frontend
-    'http://localhost:5173', // Development frontend
+    'https://ticktask-a.web.app/', // Production frontend
+    'http://localhost:5173/', // Development frontend
 ];
 
 app.use(
@@ -36,6 +26,16 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const httpServer = createServer(app);
+
+// Initialize Socket.io
+const io = initializeSocket(httpServer);
+
+// Middleware to pass Socket.IO instance to routes
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 
 // Connect to the database
 connectDB();
@@ -48,9 +48,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/tasks', require('./routes/taskRoutes'));
 
 // Start server
-const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 5000;
+// httpServer.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
 
 module.exports = httpServer;

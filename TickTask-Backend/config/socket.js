@@ -1,8 +1,8 @@
 const { Server } = require('socket.io');
 
 const allowedOrigins = [
-    'https://parcelpop-project.web.app', // Production frontend
-    'http://localhost:5173', // Development frontend
+    'https://ticktask-a.web.app/', // Production frontend
+    'http://localhost:5173/', // Development frontend
 ];
 
 function initializeSocket(server) {

@@ -6,7 +6,7 @@ TickTask is a modern task management application that allows users to add, edit,
 
 ## 🚀 Live Demo
 
-🔗 [Live Application](#) _(Add the live link once deployed)_
+🔗 [Live Application](https://ticktask-a.web.app/)
 
 ---
 
@@ -151,24 +151,6 @@ npm run dev
 | GET    | /tasks     | Get all tasks  |
 | PUT    | /tasks/:id | Update a task  |
 | DELETE | /tasks/:id | Delete a task  |
-
----
-
-## 🤝 Contributing
-
-If you'd like to contribute, please fork the repository and submit a pull request with your changes.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📬 Contact
-
-📧 For any inquiries, reach out via email at your-email@example.com.
 
 ---
 
